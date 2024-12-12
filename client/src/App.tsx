@@ -108,20 +108,13 @@ const App: React.FC = () => {
       dataIndex: "status",
       key: "status",
       render: (status: boolean) => (
-        <p
-          className={`${
-            status ? "bg-green-100 border-green-500" : "bg-red-100 border-red-500"
-          } text-white inline-flex text-xs py-1 px-3 rounded-full border`}>
-          {status ? (
-            <span className="text-green-500 flex gap-1">
-              <CheckCircleOutlined /> Completed
-            </span>
-          ) : (
-            <div className="text-red-500 flex gap-1">
-              <CloseCircleOutlined /> Not Completed
-            </div>
-          )}
-        </p>
+        <span
+          className={`inline-flex items-center text-xs py-1 px-3 rounded-full border ${
+            status ? "bg-green-100 border-green-500 text-green-500" : "bg-red-100 border-red-500 text-red-500"
+          }`}>
+          {status ? <CheckCircleOutlined className="mr-1" /> : <CloseCircleOutlined className="mr-1" />}
+          {status ? "Completed" : "Not Completed"}
+        </span>
       ),
     },
 
@@ -150,7 +143,9 @@ const App: React.FC = () => {
         </Button>
       </div>
       <div className="border rounded-xl overflow-hidden">
-        <Table dataSource={tasks} columns={columns} rowKey="id" loading={loading} pagination={{ pageSize: 5 }} />
+        {tasks.length > 0 && (
+          <Table dataSource={tasks} columns={columns} rowKey="_id" loading={loading} pagination={{ pageSize: 5 }} />
+        )}
       </div>
 
       {/* Modal for Add/Edit Task */}
