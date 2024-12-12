@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const fetchTasks = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<Task[]>(`${process.env.REACT_API_BASE_URL}/tasks`);
+      const response = await axios.get<Task[]>(`${import.meta.env.VITE_API_BASE_URL}/tasks`);
       setTasks(response.data);
     } catch (error) {
       notification.error({ message: "Failed to fetch tasks." });
@@ -38,11 +38,11 @@ const App: React.FC = () => {
     try {
       if (currentTask) {
         // Update Task
-        await axios.put(`${process.env.REACT_API_BASE_URL}/tasks/${currentTask._id}`, values);
+        await axios.put(`${import.meta.env.VITE_API_BASE_URL}/tasks/${currentTask._id}`, values);
         notification.success({ message: "Task updated successfully!" });
       } else {
         // Add Task
-        await axios.post(`${process.env.REACT_API_BASE_URL}/tasks`, values);
+        await axios.post(`${import.meta.env.VITE_API_BASE_URL}/tasks`, values);
         notification.success({ message: "Task added successfully!" });
       }
       setIsModalOpen(false);
@@ -56,7 +56,7 @@ const App: React.FC = () => {
   // Delete task
   const handleDeleteTask = async (id: string) => {
     try {
-      await axios.delete(`${process.env.REACT_API_BASE_URL}/tasks/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/tasks/${id}`);
       notification.success({ message: "Task deleted successfully!" });
       fetchTasks();
     } catch (error) {
